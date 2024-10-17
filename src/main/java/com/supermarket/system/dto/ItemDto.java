@@ -13,7 +13,7 @@ import lombok.Setter;
 public class ItemDto {
     
     @Column(nullable=false)
-    private String itemName;
+    private String iname;
 
     private double price;
 

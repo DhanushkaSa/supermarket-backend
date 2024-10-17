@@ -2,6 +2,7 @@ package com.supermarket.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.supermarket.system.entity.Item;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ItemController {
 
     @Autowired
@@ -30,11 +32,11 @@ public class ItemController {
     public ResponseEntity<?> createItem(@RequestBody ItemDto itemDto) {
 
         Item item = new Item();
-        if (itemDto.getItemName() == null) {
+        if (itemDto.getIname() == null) {
             return ResponseEntity.status(404).body("Null value");
         } else {
             Category category = categoryService.getCategory(itemDto.getCategoryId());
-            item.setIname(itemDto.getItemName());
+            item.setIname(itemDto.getIname());
             item.setPrice(itemDto.getPrice());
             item.setCategory(category);
             return ResponseEntity.status(201).body(itemService.createItem(item));
@@ -63,7 +65,7 @@ public class ItemController {
             return ResponseEntity.status(404).body("Item not found");
         } else {
             Category category = categoryService.getCategory(itemDto.getCategoryId());
-            item.setIname(itemDto.getItemName());
+            item.setIname(itemDto.getIname());
             item.setPrice(itemDto.getPrice());
             item.setCategory(category);
             return ResponseEntity.status(201).body(itemService.updateItem(itemId, item));
